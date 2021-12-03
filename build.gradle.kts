@@ -1,4 +1,5 @@
 plugins {
+    application
     kotlin("jvm") version "1.6.0"
     java
 }
@@ -20,6 +21,10 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.2.7")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+}
+
+application {
+    mainClass.set("io.ktor.server.netty.EngineMain")
 }
 
 tasks.getByName<Test>("test") {
