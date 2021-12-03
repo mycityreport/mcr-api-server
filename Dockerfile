@@ -13,7 +13,7 @@ COPY src ./src
 RUN --mount=type=cache,target=/root/.gradle/caches \
     --mount=type=cache,target=/root/.m2/repository \
     --mount=type=cache,target=/app/.gradle \
-    ./gradlew --no-daemon installDist
+    GRADLE_OPTS="-Djdk.lang.Process.launchMechanism=vfork" ./gradlew installDist
 
 
 FROM openjdk:17-slim-buster
