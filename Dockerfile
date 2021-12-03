@@ -2,6 +2,8 @@
 
 FROM openjdk:17-slim-buster as builder
 
+ENV GRADLE_OPTS "-Djdk.lang.Process.launchMechanism=vfork"
+
 WORKDIR /app
 
 COPY build.gradle.kts gradle.properties settings.gradle.kts gradlew ./
@@ -13,7 +15,7 @@ COPY src ./src
 RUN --mount=type=cache,target=/root/.gradle/caches \
     --mount=type=cache,target=/root/.m2/repository \
     --mount=type=cache,target=/app/.gradle \
-    GRADLE_OPTS="-Djdk.lang.Process.launchMechanism=vfork" ./gradlew installDist
+    ./gradlew installDist
 
 
 FROM openjdk:17-slim-buster
