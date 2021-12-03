@@ -3,5 +3,6 @@
 ## Development
 
 ```bash
-$ ./gradlew run
+$ docker compose build
+$ docker compose up -d
 ```
