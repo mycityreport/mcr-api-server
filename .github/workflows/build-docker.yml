@@ -1,0 +1,31 @@
+name: Build Docker image
+
+on:
+  push:
+    branches:
+      - '*/*'
+      - develop
+      - staging
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    permissions:
+      packages: write
+      contents: read
+    env:
+      IMAGE_NAME: mcr-api-server
+      DOCKER_BUILDKIT: 1
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Docker Image
+        run: docker build -t ${IMAGE_NAME} .
+      - name: Login to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Push Image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/${IMAGE_NAME}
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          docker tag ${IMAGE_NAME} ${IMAGE_ID}:latest
+          docker push ${IMAGE_ID}:latest
