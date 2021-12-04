@@ -2,7 +2,7 @@
 
 FROM openjdk:17-slim-buster as builder
 
-ENV GRADLE_OPTS "-Djdk.lang.Process.launchMechanism=vfork"
+ARG GRADLE_OPTS
 
 WORKDIR /app
 
