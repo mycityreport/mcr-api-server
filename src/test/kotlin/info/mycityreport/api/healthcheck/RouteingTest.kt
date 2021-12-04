@@ -6,7 +6,7 @@ import io.ktor.http.*
 import io.ktor.server.testing.*
 import kotlin.test.*
 
-class RouteingTest {
+internal class RouteingTest {
     @Test
     fun healthEndpointIsAvailable() {
         withTestApplication(Application::module) {
