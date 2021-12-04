@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mcr-api:
+    build:
+      context: .
+      dockerfile: develop.Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      DEVELOPMENT: 'true'
+    volumes:
+      - ./build:/app/build
+    command: [ "./gradlew", "run" ]
+  builder:
+    build:
+      context: .
+      dockerfile: develop.Dockerfile
+    volumes:
+      - ./build:/app/build
+      - ./src:/app/src
+    command: [ "./gradlew", "-t", "build" ]
