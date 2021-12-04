@@ -12,7 +12,7 @@ internal class RouteingTest {
         withTestApplication(Application::module) {
             handleRequest(HttpMethod.Get, "/health").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("{ \"status\": 200 }", response.content)
+                assertEquals("{\"status\":200}", response.content)
             }
         }
     }
