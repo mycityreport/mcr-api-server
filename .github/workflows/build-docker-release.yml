@@ -31,7 +31,7 @@ jobs:
           path: /tmp/.buildx-cache
           key: ${{ github.ref }}-buildx-${{ github.sha }}
           restore-keys: |
-            - refs/head/main
+            refs/head/main
       - name: Extract tag name
         shell: bash
         run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
