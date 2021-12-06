@@ -1,5 +1,3 @@
-# syntax = docker/dockerfile:experimental
-
 FROM openjdk:17-slim-buster as builder
 
 ARG GRADLE_OPTS
