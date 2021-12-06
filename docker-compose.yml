@@ -4,7 +4,7 @@ services:
   mcr-api:
     build:
       context: .
-      dockerfile: develop.Dockerfile
+      target: builder
     ports:
       - '8080:8080'
     environment:
@@ -15,7 +15,7 @@ services:
   builder:
     build:
       context: .
-      dockerfile: develop.Dockerfile
+      target: builder
     volumes:
       - ./build:/app/build
       - ./src:/app/src
