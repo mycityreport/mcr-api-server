@@ -2,6 +2,7 @@ plugins {
     application
     kotlin("jvm") version "1.6.0"
     kotlin("plugin.serialization") version "1.6.0"
+    id("com.github.johnrengelman.shadow") version "7.1.0"
     java
 }
 
@@ -34,4 +35,13 @@ application {
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
+}
+
+tasks {
+    compileKotlin {
+        kotlinOptions.jvmTarget = "17"
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "17"
+    }
 }
