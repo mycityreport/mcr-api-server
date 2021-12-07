@@ -18,7 +18,7 @@ val ktorVersion = "1.6.6"
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
     implementation("io.ktor:ktor-server-core:${ktorVersion}")
-    implementation("io.ktor:ktor-server-netty:${ktorVersion}")
+    implementation("io.ktor:ktor-server-cio:${ktorVersion}")
     implementation("io.ktor:ktor-serialization:${ktorVersion}")
     implementation("ch.qos.logback:logback-classic:1.2.7")
 
@@ -29,7 +29,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("io.ktor.server.netty.EngineMain")
+    mainClass.set("io.ktor.server.cio.EngineMain")
 }
 
 tasks.getByName<Test>("test") {
