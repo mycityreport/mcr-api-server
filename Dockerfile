@@ -12,21 +12,15 @@ RUN ./gradlew dependencies --refresh-dependencies
 
 COPY src ./src
 
-RUN ./gradlew installDist
+RUN ./gradlew shadowJar
 
 
-FROM openjdk:17-slim-buster
+FROM gcr.io/distroless/java17-debian11:nonroot
 
 EXPOSE 8080
 
-RUN mkdir /app
-RUN useradd mcr
-RUN chown mcr:mcr /app
+WORKDIR /app
 
-COPY --from=builder --chown=mcr:mcr /app/build/install/mcr-api-server/ /app/
+COPY --from=builder /app/build/libs/mcr-api-server-*-all.jar mcr-api-server.jar
 
-USER mcr
-
-WORKDIR /app/bin
-
-CMD [ "./mcr-api-server" ]
+CMD [ "mcr-api-server.jar" ]
