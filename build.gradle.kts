@@ -36,3 +36,12 @@ application {
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
 }
+
+tasks {
+    compileKotlin {
+        kotlinOptions.jvmTarget = "17"
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "17"
+    }
+}
