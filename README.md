@@ -17,5 +17,21 @@ $ docker compose build
 $ docker compose up -d
 ```
 
+## 開発の流れ
+まず GitHub Projects にタスクを登録して、それを Issue に変換してください。それに対して Pull Request を作成します。
+
+各開発用ブランチは `develop` から切るようにして、`feature/foo` `fix/bar` のように命名するようにしてください。この名前で作ると GitHub Actions が走るようになっています。
+
+なお、そのまま push すると lint や test に引っかかる可能性があります。Push 前にはそれらを実行しておくと良いでしょう。 
+
+```bash
+$ git switch -c feature/foo
+$ ./gradlew ktlintFormat
+$ ./gradlew test
+$ git add .
+$ git commit -m "message"
+$ git push -u origin feature/foo
+```
+
 ## License
 ソースコードについては MIT ライセンスを適用しています。
