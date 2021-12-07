@@ -52,7 +52,7 @@ jobs:
     needs:
       - lint
       - test
-    if: contains(${{ github.ref }}, '/')
+    if: contains(github.ref, '/')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -75,10 +75,7 @@ jobs:
     needs:
       - lint
       - test
-    if: |
-      contains(${{ github.ref }}, 'main') ||
-      contains(${{ github.ref }}, 'staging') ||
-      contains(${{ github.ref }}, 'develop')
+    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/develop' }}
     permissions:
       packages: write
       contents: read
