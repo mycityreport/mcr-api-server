@@ -33,5 +33,9 @@ $ git commit -m "message"
 $ git push -u origin feature/foo
 ```
 
+### ktlint について
+ワイルドカードインポートを使っているとエラーになります。IntelliJ IDEA を使っている場合は `Preferences > Editor > Code Style > Kotlin > Imports` にて
+`Top-Level Symbols` と `Java Statics and Enum Members` の設定を `Use single name import` に切り替えておいてください。
+
 ## License
 ソースコードについては MIT ライセンスを適用しています。
