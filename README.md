@@ -36,6 +36,16 @@ $ git push -u origin feature/foo
 ### ktlint について
 ワイルドカードインポートを使っているとエラーになります。IntelliJ IDEA を使っている場合は `Preferences > Editor > Code Style > Kotlin > Imports` にて
 `Top-Level Symbols` と `Java Statics and Enum Members` の設定を `Use single name import` に切り替えておいてください。
+また、`Packages to Use Import With '*'` に `io.ktor.*` が含まれている場合はこちらのチェックも外しておいてください。
+
+## 環境変数一覧
+設定として注入できる環境変数の一覧は以下の表の通りです。
+
+| 環境変数名 | 設定可能な値 | デフォルト値 | 説明 |
+| --- | --- | --- | --- |
+| DEVELOPMENT | `true`, `false` | `false` | 開発モードへの切り替えに使います。開発モードではホットリロードが有効になります。 |
+| PORT | ポートとして利用可能な数値 | `8080` | 外向けのポート設定です。 |
+| CORS_URLS | スキーマやポートを含むURL | `""` | CORS でアクセスを通したい URL をカンマ区切りで指定できます。何も指定しない場合全ての URL から受け付けます。 |
 
 ## License
 ソースコードについては MIT ライセンスを適用しています。
