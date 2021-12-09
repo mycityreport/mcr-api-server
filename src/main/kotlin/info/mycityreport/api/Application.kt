@@ -17,12 +17,13 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 fun Application.module(testing: Boolean = false) {
     install(CORS) {
-        val corsSettings = CORSSettings(environment)
+        val rawCORSSettings = environment.config.propertyOrNull("ktor.corsAllowedURLs")?.getString() ?: ""
+        val corsSettings = CORSSettings(rawCORSSettings)
         if (corsSettings.allowedURLs().isEmpty()) {
             anyHost()
         } else {
             corsSettings.allowedURLs().forEach {
-                host(it.authority, schemes = listOf(it.scheme))
+                host(it.authority, schemes = listOf(it.protocol))
             }
         }
         // Default allowed HTTP methods are GET, POST and HEAD.
