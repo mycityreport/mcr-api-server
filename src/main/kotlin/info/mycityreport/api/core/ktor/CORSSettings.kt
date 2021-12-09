@@ -1,15 +1,18 @@
 package info.mycityreport.api.core.ktor
 
-import io.ktor.application.ApplicationEnvironment
-import java.net.URI
+import java.net.MalformedURLException
+import java.net.URL
 
-class CORSSettings(private val env: ApplicationEnvironment) {
-    private val rawURLs: List<String>
-    init {
-        val rawEnvValue = env.config.propertyOrNull("ktor.corsAllowedURLs")?.getString() ?: ""
-        rawURLs = rawEnvValue.split(",")
-    }
-    fun allowedURLs(): List<URI> {
-        return rawURLs.filter { it !== "" }.map { URI(it) }
+class CORSSettings(rawCORSSettings: String) {
+    private val rawURLs: List<String> = rawCORSSettings.split(",")
+
+    fun allowedURLs(): List<URL> {
+        return rawURLs.mapNotNull {
+            try {
+                URL(it)
+            } catch (e: MalformedURLException) {
+                null
+            }
+        }
     }
 }
