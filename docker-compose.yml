@@ -2,21 +2,31 @@ version: '3.8'
 
 services:
   mcr-api:
-    build:
-      context: .
-      target: builder
+    image: gradle:7-jdk17
     ports:
       - '8080:8080'
     environment:
       DEVELOPMENT: 'true'
     volumes:
-      - ./build:/app/build
-    command: [ "./gradlew", "run" ]
+      - build-result:/app/build:rw
+      - gradle-caches:/home/gradle/.gradle:rw
+      - ./build.gradle.kts:/app/build.gradle.kts:ro
+      - ./gradle.properties:/app/gradle.properties:ro
+      - ./settings.gradle.kts:/app/settings.gradle.kts:ro
+    working_dir: /app
+    command: [ "gradle", "run" ]
   builder:
-    build:
-      context: .
-      target: builder
+    image: gradle:7-jdk17
     volumes:
-      - ./build:/app/build
-      - ./src:/app/src
-    command: [ "./gradlew", "-t", "build" ]
+      - build-result:/app/build:rw
+      - gradle-caches:/home/gradle/.gradle:rw
+      - ./src:/app/src:ro
+      - ./build.gradle.kts:/app/build.gradle.kts:ro
+      - ./gradle.properties:/app/gradle.properties:ro
+      - ./settings.gradle.kts:/app/settings.gradle.kts:ro
+    working_dir: /app
+    command: [ "gradle", "-t", "build" ]
+
+volumes:
+  build-result:
+  gradle-caches:

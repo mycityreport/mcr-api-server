@@ -38,6 +38,15 @@ $ git push -u origin feature/foo
 `Top-Level Symbols` と `Java Statics and Enum Members` の設定を `Use single name import` に切り替えておいてください。
 また、`Packages to Use Import With '*'` に `io.ktor.*` が含まれている場合はこちらのチェックも外しておいてください。
 
+### Docker Image のビルドについて
+Fat Jar をコピーする方式になっているので、事前に jar ファイルを作っておいてください。
+
+```bash
+$ ./gradlew shadowJar
+$ docker image build -t mcr-api-server .
+$ docker container run --rm -p 8080:8080 mcr-api-server
+```
+
 ## 環境変数一覧
 設定として注入できる環境変数の一覧は以下の表の通りです。
 
