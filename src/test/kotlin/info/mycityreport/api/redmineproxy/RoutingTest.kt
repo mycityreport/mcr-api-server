@@ -13,13 +13,12 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 internal class RoutingTest {
-    private val dependencies = DI {
-        bind<GetProxyClient> { singleton { DummyGetHTTPClient() } }
-    }
-
     @Test
     fun `プロキシ対象の各種アドレスにアクセスできる`() {
         // given
+        val dependencies = DI {
+            bind<GetProxyClient> { singleton { DummyGetHTTPClient(200) } }
+        }
         val urls = listOf("/issues.json", "/projects/3.json", "/my/account")
 
         // when
@@ -29,6 +28,26 @@ internal class RoutingTest {
             urls.map { "/proxy$it" }.forEach {
                 handleRequest(HttpMethod.Get, it).apply {
                     assertEquals(HttpStatusCode.OK, response.status())
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `プロキシ先で起きたエラーがそのまま返ってくる`() {
+        // given
+        val dependencies = DI {
+            bind<GetProxyClient> { singleton { DummyGetHTTPClient(404) } }
+        }
+        val urls = listOf("/foo.json")
+
+        // when
+
+        // then
+        withTestApplication({ module(dependencies) }) {
+            urls.map { "/proxy$it" }.forEach {
+                handleRequest(HttpMethod.Get, it).apply {
+                    assertEquals(HttpStatusCode.NotFound, response.status())
                 }
             }
         }
