@@ -7,9 +7,11 @@ services:
       - '8080:8080'
     environment:
       DEVELOPMENT: 'true'
+      PROXY_BASE_URL: 'https://dev.admin.mycityreport.jp'
     volumes:
       - build-result:/app/build:rw
       - gradle-caches:/home/gradle/.gradle:rw
+      - ./src:/app/src:ro
       - ./build.gradle.kts:/app/build.gradle.kts:ro
       - ./gradle.properties:/app/gradle.properties:ro
       - ./settings.gradle.kts:/app/settings.gradle.kts:ro
@@ -25,7 +27,7 @@ services:
       - ./gradle.properties:/app/gradle.properties:ro
       - ./settings.gradle.kts:/app/settings.gradle.kts:ro
     working_dir: /app
-    command: [ "gradle", "-t", "build" ]
+    command: [ "gradle", "-t", "build", "-x", "test" ]
 
 volumes:
   build-result:
