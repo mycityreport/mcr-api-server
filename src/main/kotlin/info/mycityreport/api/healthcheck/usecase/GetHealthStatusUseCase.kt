@@ -1,10 +1,10 @@
 package info.mycityreport.api.healthcheck.usecase
 
-import info.mycityreport.api.healthcheck.domain.entities.HttpStatus
+import info.mycityreport.api.healthcheck.domain.entities.HTTPSuccessStatusCode
 
 class GetHealthStatusUseCase {
     fun execute(): HealthStatusDTO {
-        val status = HttpStatus(200)
+        val status = HTTPSuccessStatusCode(200)
         return HealthStatusDTO(status)
     }
 }
