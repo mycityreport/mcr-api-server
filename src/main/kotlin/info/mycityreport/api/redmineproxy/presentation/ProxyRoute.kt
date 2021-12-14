@@ -1,5 +1,8 @@
 package info.mycityreport.api.redmineproxy.presentation
 
+import info.mycityreport.api.redmineproxy.domain.entities.GETParameter
+import info.mycityreport.api.redmineproxy.domain.entities.HTTPHeader
+import info.mycityreport.api.redmineproxy.domain.entities.URLPath
 import info.mycityreport.api.redmineproxy.usecase.GetProxyClient
 import info.mycityreport.api.redmineproxy.usecase.GetProxyUseCase
 import io.ktor.application.Application
@@ -21,9 +24,12 @@ fun Route.redmineProxyRouting() {
         get {
             val getProxyClient by call.closestDI().instance<GetProxyClient>()
             val getProxyUseCase = GetProxyUseCase(getProxyClient)
-            val path = call.request.path().split("/").drop(2).joinToString("/")
-            val headers = call.request.headers.toMap()
-            val params = call.request.queryParameters.toMap()
+            val rawPath = call.request.path().split("/").filterNot { it == "proxy" }.joinToString("/")
+            val rawHeaders = call.request.headers.toMap()
+            val rawParams = call.request.queryParameters.toMap()
+            val path = URLPath(rawPath)
+            val headers = rawHeaders.map { HTTPHeader(it.key, it.value) }
+            val params = rawParams.map { GETParameter(it.key, it.value) }
             val response = getProxyUseCase.execute(path, headers, params)
             val contentType = ContentType.parse(response.contentType)
             val statusCode = HttpStatusCode.fromValue(response.statusCode)

@@ -12,8 +12,8 @@ import info.mycityreport.api.redmineproxy.usecase.GetProxyClient
 class DummyGetHTTPClient : GetProxyClient {
     override suspend fun get(
         path: URLPath,
-        httpHeaders: List<HTTPHeader>?,
-        getParams: List<GETParameter>?
+        httpHeaders: List<HTTPHeader>,
+        getParams: List<GETParameter>
     ): GetResponse {
         val statusCode = HTTPStatusCode(200)
         val contentType = ContentType("text/plain")
