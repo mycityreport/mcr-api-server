@@ -33,8 +33,10 @@ fun Application.module(testing: Boolean = false) {
         allowHeadersPrefixed("X-Redmine")
     }
     install(ContentNegotiation) {
+        val defaultBaseURL = "http://localhost:5000"
+        val baseURL = environment.config.propertyOrNull("ktor.mcr.proxyBaseURL")?.getString() ?: defaultBaseURL
         json()
         registerHealthCheckRoutes()
-        registerRedmineProxyRoutes()
+        registerRedmineProxyRoutes(baseURL)
     }
 }
