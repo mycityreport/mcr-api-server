@@ -26,6 +26,6 @@ internal class GetProxyUseCaseTest {
         // then
         assertEquals(200, response.statusCode)
         assertEquals("text/plain", response.contentType)
-        assertTrue { path.value.toByteArray().contentEquals(response.body) }
+        assertTrue { path.value.toByteArray().contentEquals(response.responseBody) }
     }
 }

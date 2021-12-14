@@ -33,7 +33,7 @@ fun Route.redmineProxyRouting() {
             val response = getProxyUseCase.execute(path, headers, params)
             val contentType = ContentType.parse(response.contentType)
             val statusCode = HttpStatusCode.fromValue(response.statusCode)
-            call.respondBytes(response.body, contentType, statusCode)
+            call.respondBytes(response.responseBody, contentType, statusCode)
         }
     }
 }
