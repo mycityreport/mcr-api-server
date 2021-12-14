@@ -16,7 +16,6 @@ repositories {
 
 val kotlinVersion = "1.6.0"
 val ktorVersion = "1.6.6"
-val kodeinVersion = "7.9.0"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
@@ -28,8 +27,7 @@ dependencies {
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
 
-    implementation("org.kodein.di:kodein-di:$kodeinVersion")
-    implementation("org.kodein.di:kodein-di-framework-ktor-server-jvm:$kodeinVersion")
+    implementation("org.kodein.di:kodein-di-framework-ktor-server-jvm:7.9.0")
 
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
