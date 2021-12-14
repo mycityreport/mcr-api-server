@@ -10,7 +10,8 @@ value class HTTPStatusCode(val value: Int) {
 @JvmInline
 value class ContentType(val value: String) {
     init {
-        require(value.split("/").all { it.isNotEmpty() }) { "Invalid Content Type" }
+        val parts = value.split("/")
+        require(parts.size == 2 && parts.all { it.isNotEmpty() }) { "Invalid Content Type" }
     }
 }
 
