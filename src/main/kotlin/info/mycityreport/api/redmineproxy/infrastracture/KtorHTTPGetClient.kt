@@ -21,7 +21,7 @@ class KtorHTTPGetClient(private val baseURL: String) : GetProxyClient {
     private val defaultContentType = "text/plain"
 
     override suspend fun get(path: URLPath, httpHeaders: List<HTTPHeader>, getParams: List<GETParameter>): GetResponse {
-        val client = HttpClient(CIO)
+        val client = HttpClient(CIO) { expectSuccess = false }
         val response = client.get<HttpResponse>("$baseURL${path.value}") {
             headers {
                 httpHeaders.filterNot { it.key == "Host" }.forEach { appendAll(it.key, it.values) }
