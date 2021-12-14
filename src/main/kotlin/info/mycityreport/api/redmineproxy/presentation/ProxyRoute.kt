@@ -1,6 +1,6 @@
 package info.mycityreport.api.redmineproxy.presentation
 
-import info.mycityreport.api.redmineproxy.infrastracture.KtorHTTPGetClient
+import info.mycityreport.api.redmineproxy.usecase.GetProxyClient
 import info.mycityreport.api.redmineproxy.usecase.GetProxyUseCase
 import io.ktor.application.Application
 import io.ktor.application.call
@@ -13,13 +13,14 @@ import io.ktor.routing.get
 import io.ktor.routing.route
 import io.ktor.routing.routing
 import io.ktor.util.toMap
+import org.kodein.di.instance
+import org.kodein.di.ktor.closestDI
 
-fun Route.redmineProxyRouting(baseURL: String) {
-    val getProxyClient = KtorHTTPGetClient(baseURL)
-    val getProxyUseCase = GetProxyUseCase(getProxyClient)
-
+fun Route.redmineProxyRouting() {
     route("/proxy/{...}") {
         get {
+            val getProxyClient by call.closestDI().instance<GetProxyClient>()
+            val getProxyUseCase = GetProxyUseCase(getProxyClient)
             val path = call.request.path().split("/").drop(2).joinToString("/")
             val headers = call.request.headers.toMap()
             val params = call.request.queryParameters.toMap()
@@ -31,8 +32,8 @@ fun Route.redmineProxyRouting(baseURL: String) {
     }
 }
 
-fun Application.registerRedmineProxyRoutes(baseURL: String) {
+fun Application.registerRedmineProxyRoutes() {
     routing {
-        redmineProxyRouting(baseURL)
+        redmineProxyRouting()
     }
 }
