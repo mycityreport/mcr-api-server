@@ -71,11 +71,11 @@ internal class GetResponseTest {
         val responseBody = ResponseBody("{\"foo\": \"bar\"}".toByteArray())
 
         // when
-        val HTTPResponse = HTTPResponse(statusCode, contentType, responseBody)
+        val httpResponse = HTTPResponse(statusCode, contentType, responseBody)
 
         // then
-        assertEquals(statusCode.value, HTTPResponse.statusCode)
-        assertEquals(contentType.value, HTTPResponse.contentType)
-        assertEquals(responseBody.value, HTTPResponse.body)
+        assertEquals(statusCode.value, httpResponse.statusCode)
+        assertEquals(contentType.value, httpResponse.contentType)
+        assertEquals(responseBody.value, httpResponse.body)
     }
 }
