@@ -33,6 +33,13 @@ $ git commit -m "message"
 $ git push -u origin feature/foo
 ```
 
+### テストの実行
+実は Docker 上でも実行できます。将来的にはデータベースとの結合テストが行われる予定なので、この方法で実行することを推奨します。
+
+```bash
+$ docker compose exec builder gradle test
+```
+
 ### ktlint について
 ワイルドカードインポートを使っているとエラーになります。IntelliJ IDEA を使っている場合は `Preferences > Editor > Code Style > Kotlin > Imports` にて
 `Top-Level Symbols` と `Java Statics and Enum Members` の設定を `Use single name import` に切り替えておいてください。
