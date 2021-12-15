@@ -1,7 +1,7 @@
 package info.mycityreport.api.redmineproxy
 
 import info.mycityreport.api.redmineproxy.domain.entities.ContentType
-import info.mycityreport.api.redmineproxy.domain.entities.GetResponse
+import info.mycityreport.api.redmineproxy.domain.entities.HTTPResponse
 import info.mycityreport.api.redmineproxy.domain.entities.HTTPStatusCode
 import info.mycityreport.api.redmineproxy.domain.entities.ResponseBody
 import org.junit.jupiter.api.assertThrows
@@ -71,11 +71,11 @@ internal class GetResponseText {
         val responseBody = ResponseBody("{\"foo\": \"bar\"}".toByteArray())
 
         // when
-        val getResponse = GetResponse(statusCode, contentType, responseBody)
+        val HTTPResponse = HTTPResponse(statusCode, contentType, responseBody)
 
         // then
-        assertEquals(statusCode.value, getResponse.statusCode)
-        assertEquals(contentType.value, getResponse.contentType)
-        assertEquals(responseBody.value, getResponse.body)
+        assertEquals(statusCode.value, HTTPResponse.statusCode)
+        assertEquals(contentType.value, HTTPResponse.contentType)
+        assertEquals(responseBody.value, HTTPResponse.body)
     }
 }
