@@ -8,7 +8,7 @@ import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-internal class GetResponseTest {
+internal class HTTPResponseTest {
     @Test
     fun `HTTPStatusCodeが正常な範囲内で生成できる`() {
         // given
@@ -64,7 +64,7 @@ internal class GetResponseTest {
     }
 
     @Test
-    fun `正常なGETResponseが生成できる`() {
+    fun `正常なHTTPResponseが生成できる`() {
         // given
         val statusCode = HTTPStatusCode(200)
         val contentType = ContentType("application/json")
