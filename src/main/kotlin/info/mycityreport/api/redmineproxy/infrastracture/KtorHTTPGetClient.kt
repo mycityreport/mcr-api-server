@@ -2,8 +2,8 @@ package info.mycityreport.api.redmineproxy.infrastracture
 
 import info.mycityreport.api.redmineproxy.domain.entities.ContentType
 import info.mycityreport.api.redmineproxy.domain.entities.GETParameter
-import info.mycityreport.api.redmineproxy.domain.entities.GetResponse
 import info.mycityreport.api.redmineproxy.domain.entities.HTTPHeader
+import info.mycityreport.api.redmineproxy.domain.entities.HTTPResponse
 import info.mycityreport.api.redmineproxy.domain.entities.HTTPStatusCode
 import info.mycityreport.api.redmineproxy.domain.entities.ResponseBody
 import info.mycityreport.api.redmineproxy.domain.entities.URLPath
@@ -20,7 +20,7 @@ import io.ktor.util.toByteArray
 class KtorHTTPGetClient(private val baseURL: String) : GetProxyClient {
     private val defaultContentType = "text/plain"
 
-    override suspend fun get(path: URLPath, httpHeaders: List<HTTPHeader>, getParams: List<GETParameter>): GetResponse {
+    override suspend fun get(path: URLPath, httpHeaders: List<HTTPHeader>, getParams: List<GETParameter>): HTTPResponse {
         val client = HttpClient(CIO) { expectSuccess = false }
         val response = client.get<HttpResponse>("$baseURL${path.value}") {
             headers {
@@ -34,6 +34,6 @@ class KtorHTTPGetClient(private val baseURL: String) : GetProxyClient {
         val contentType = ContentType(response.contentType()?.toString() ?: defaultContentType)
         val responseBody = ResponseBody(response.content.toByteArray())
 
-        return GetResponse(statusCode, contentType, responseBody)
+        return HTTPResponse(statusCode, contentType, responseBody)
     }
 }
