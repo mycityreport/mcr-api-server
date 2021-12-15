@@ -33,6 +33,13 @@ $ git commit -m "message"
 $ git push -u origin feature/foo
 ```
 
+### テストの実行
+実は Docker 上でも実行できます。将来的にはデータベースとの結合テストが行われる予定なので、この方法で実行することを推奨します。
+
+```bash
+$ docker compose exec builder gradle test
+```
+
 ### ktlint について
 ワイルドカードインポートを使っているとエラーになります。IntelliJ IDEA を使っている場合は `Preferences > Editor > Code Style > Kotlin > Imports` にて
 `Top-Level Symbols` と `Java Statics and Enum Members` の設定を `Use single name import` に切り替えておいてください。
@@ -54,7 +61,8 @@ $ docker container run --rm -p 8080:8080 mcr-api-server
 | --- | --- | --- | --- |
 | DEVELOPMENT | `true`, `false` | `false` | 開発モードへの切り替えに使います。開発モードではホットリロードが有効になります。 |
 | PORT | ポートとして利用可能な数値 | `8080` | 外向けのポート設定です。 |
-| CORS_URLS | スキーマやポートを含むURL | `""` | CORS でアクセスを通したい URL をカンマ区切りで指定できます。何も指定しない場合全ての URL から受け付けます。 |
+| CORS_URLS | スキーマやポートを含む URL | `""` | CORS でアクセスを通したい URL をカンマ区切りで指定できます。何も指定しない場合全ての URL から受け付けます。 |
+| PROXY_BASE_URL | プロキシ先の URL | `http://localhost` | `/proxy` エンドポイントにアクセスした際のプロキシ先 URL を指定できます。 |
 
 ## License
 ソースコードについては MIT ライセンスを適用しています。
