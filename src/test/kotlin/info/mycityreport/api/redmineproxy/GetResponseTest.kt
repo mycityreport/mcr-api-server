@@ -8,7 +8,7 @@ import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-internal class GetResponseText {
+internal class GetResponseTest {
     @Test
     fun `HTTPStatusCodeが正常な範囲内で生成できる`() {
         // given
