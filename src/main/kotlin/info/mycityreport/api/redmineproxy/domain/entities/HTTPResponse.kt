@@ -18,7 +18,7 @@ value class ContentType(val value: String) {
 @JvmInline
 value class ResponseBody(val value: ByteArray)
 
-data class GetResponse(
+data class HTTPResponse(
     private val _statusCode: HTTPStatusCode,
     private val _contentType: ContentType,
     private val _body: ResponseBody,
