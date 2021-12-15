@@ -54,7 +54,8 @@ $ docker container run --rm -p 8080:8080 mcr-api-server
 | --- | --- | --- | --- |
 | DEVELOPMENT | `true`, `false` | `false` | 開発モードへの切り替えに使います。開発モードではホットリロードが有効になります。 |
 | PORT | ポートとして利用可能な数値 | `8080` | 外向けのポート設定です。 |
-| CORS_URLS | スキーマやポートを含むURL | `""` | CORS でアクセスを通したい URL をカンマ区切りで指定できます。何も指定しない場合全ての URL から受け付けます。 |
+| CORS_URLS | スキーマやポートを含む URL | `""` | CORS でアクセスを通したい URL をカンマ区切りで指定できます。何も指定しない場合全ての URL から受け付けます。 |
+| PROXY_BASE_URL | プロキシ先の URL | `http://localhost` | `/proxy` エンドポイントにアクセスした際のプロキシ先 URL を指定できます。 |
 
 ## License
 ソースコードについては MIT ライセンスを適用しています。
