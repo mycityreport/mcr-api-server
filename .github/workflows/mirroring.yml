@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: copy this repository
         uses: pixta-dev/repository-mirroring-action@v1
         with:
