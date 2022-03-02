@@ -29,6 +29,8 @@ dependencies {
 
     implementation("org.kodein.di:kodein-di-framework-ktor-server-jvm:7.9.0")
 
+    implementation("com.auth0:jwks-rsa:0.20.2")
+
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
