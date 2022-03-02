@@ -15,13 +15,15 @@ repositories {
 }
 
 val kotlinVersion = "1.6.0"
-val ktorVersion = "1.6.6"
+val ktorVersion = "1.6.7"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("io.ktor:ktor-server-core:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-serialization:$ktorVersion")
+    implementation("io.ktor:ktor-auth:$ktorVersion")
+    implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:1.2.7")
 
     implementation("io.ktor:ktor-client-core:$ktorVersion")
