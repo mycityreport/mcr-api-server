@@ -8,6 +8,8 @@ services:
     environment:
       DEVELOPMENT: 'true'
       PROXY_BASE_URL: 'https://dev.admin.mycityreport.jp'
+      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
+      AUTH0_ISSUER: ${AUTH0_ISSUER}
     volumes:
       - build-result:/app/build:rw
       - gradle-caches:/home/gradle/.gradle:rw
