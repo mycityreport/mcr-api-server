@@ -11,18 +11,12 @@ import io.ktor.util.toMap
 
 class GetProxyController(private val useCase: GetProxyUseCase, private val request: ApplicationRequest) {
     suspend fun callGetProxy(): GetProxyResponse {
-        val rawPath = pathParser(request.path())
+        val rawPath = request.path().pathParser()
         val rawHeaders = request.headers.toMap()
         val rawParams = request.queryParameters.toMap()
         val path = URLPath(rawPath)
         val headers = rawHeaders.map { HTTPHeader(it.key, it.value) }
         val params = rawParams.map { GETParameter(it.key, it.value) }
         return useCase.execute(path, headers, params)
-    }
-
-    private fun pathParser(rawPath: String): String {
-        // Ktor で request.path() を取得すると `/proxy/{...}` という状態で取れるので
-        // 前半部分の `/proxy` を切り取る処理を行う
-        return rawPath.replace(Regex("^/proxy"), "")
     }
 }

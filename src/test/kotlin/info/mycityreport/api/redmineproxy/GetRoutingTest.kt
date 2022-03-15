@@ -12,9 +12,9 @@ import org.kodein.di.singleton
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-internal class RoutingTest {
+internal class GetRoutingTest {
     @Test
-    fun `プロキシ対象の各種アドレスにアクセスできる`() {
+    fun `プロキシ対象の各種アドレスにGETでアクセスできる`() {
         // given
         val dependencies = DI {
             bind<GetProxyClient> { singleton { DummyGetHTTPClient(200) } }
@@ -34,7 +34,7 @@ internal class RoutingTest {
     }
 
     @Test
-    fun `プロキシ先で起きたエラーがそのまま返ってくる`() {
+    fun `プロキシ先で起きたGETのエラーがそのまま返ってくる`() {
         // given
         val dependencies = DI {
             bind<GetProxyClient> { singleton { DummyGetHTTPClient(404) } }

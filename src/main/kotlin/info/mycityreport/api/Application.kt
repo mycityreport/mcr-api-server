@@ -3,8 +3,10 @@ package info.mycityreport.api
 import info.mycityreport.api.core.ktor.CORSSettings
 import info.mycityreport.api.healthcheck.presentation.registerHealthCheckRoutes
 import info.mycityreport.api.redmineproxy.infrastracture.KtorHTTPGetClient
+import info.mycityreport.api.redmineproxy.infrastracture.KtorHTTPPostClient
 import info.mycityreport.api.redmineproxy.presentation.registerRedmineProxyRoutes
 import info.mycityreport.api.redmineproxy.usecase.GetProxyClient
+import info.mycityreport.api.redmineproxy.usecase.PostProxyClient
 import io.ktor.application.Application
 import io.ktor.application.ApplicationEnvironment
 import io.ktor.application.install
@@ -24,6 +26,7 @@ fun dependencies(environment: ApplicationEnvironment): DI {
     val baseURL = environment.config.propertyOrNull("ktor.mcr.proxyBaseURL")?.getString() ?: defaultBaseURL
     return DI {
         bind<GetProxyClient> { singleton { KtorHTTPGetClient(baseURL) } }
+        bind<PostProxyClient> { singleton { KtorHTTPPostClient(baseURL) } }
     }
 }
 
