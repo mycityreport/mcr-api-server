@@ -35,14 +35,14 @@ fun dependencies(environment: ApplicationEnvironment): DI {
 fun Application.module(dependencies: DI = dependencies(environment)) {
     val audience = environment.config.propertyOrNull("ktor.auth0.audience")?.getString() ?: ""
     val issuer = environment.config.propertyOrNull("ktor.auth0.issuer")?.getString() ?: ""
-    val jwkProvider = JwkProviderBuilder(System.getenv(issuer))
+    val jwkProvider = JwkProviderBuilder(issuer)
         .cached(10, 24, TimeUnit.HOURS)
         .rateLimited(10, 1, TimeUnit.MINUTES)
         .build()
 
     install(Authentication) {
         jwt("auth0") {
-            verifier(jwkProvider, System.getenv(issuer))
+            verifier(jwkProvider, issuer)
             validate { it.validateCredentialsOrNull(audience) }
         }
     }
