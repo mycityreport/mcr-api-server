@@ -2,6 +2,7 @@ package info.mycityreport.api
 
 import com.auth0.jwk.JwkProviderBuilder
 import info.mycityreport.api.core.ktor.CORSSettings
+import info.mycityreport.api.core.ktor.usecase.MCRException
 import info.mycityreport.api.core.ktor.validateCredentialsOrNull
 import info.mycityreport.api.healthcheck.presentation.registerHealthCheckRoutes
 import info.mycityreport.api.redmineproxy.infrastracture.KtorHTTPGetClient
@@ -9,12 +10,16 @@ import info.mycityreport.api.redmineproxy.presentation.registerRedmineProxyRoute
 import info.mycityreport.api.redmineproxy.usecase.GetProxyClient
 import io.ktor.application.Application
 import io.ktor.application.ApplicationEnvironment
+import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.auth.Authentication
 import io.ktor.auth.jwt.jwt
 import io.ktor.features.CORS
 import io.ktor.features.ContentNegotiation
+import io.ktor.features.StatusPages
 import io.ktor.http.HttpMethod
+import io.ktor.http.HttpStatusCode
+import io.ktor.response.respond
 import io.ktor.serialization.json
 import org.kodein.di.DI
 import org.kodein.di.bind
@@ -44,6 +49,12 @@ fun Application.module(dependencies: DI = dependencies(environment)) {
         jwt("auth0") {
             verifier(jwkProvider, issuer)
             validate { it.validateCredentialsOrNull(audience) }
+        }
+    }
+
+    install(StatusPages) {
+        exception<MCRException.AuthorizationException> {
+            call.respond(HttpStatusCode.Forbidden)
         }
     }
 
