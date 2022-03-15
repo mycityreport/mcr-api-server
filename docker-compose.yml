@@ -8,6 +8,7 @@ services:
     environment:
       DEVELOPMENT: 'true'
       PROXY_BASE_URL: 'https://dev.admin.mycityreport.jp'
+      CORS_URLS: 'http://localhost:3000'
       AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
       AUTH0_ISSUER: ${AUTH0_ISSUER}
     volumes:
@@ -18,7 +19,7 @@ services:
       - ./gradle.properties:/app/gradle.properties:ro
       - ./settings.gradle.kts:/app/settings.gradle.kts:ro
     working_dir: /app
-    command: [ "gradle", "run" ]
+    command: [ "gradle", "--no-daemon", "run" ]
   builder:
     image: gradle:7-jdk17
     volumes:
@@ -29,7 +30,7 @@ services:
       - ./gradle.properties:/app/gradle.properties:ro
       - ./settings.gradle.kts:/app/settings.gradle.kts:ro
     working_dir: /app
-    command: [ "gradle", "-t", "build", "-x", "test" ]
+    command: [ "gradle", "--no-daemon", "-t", "build", "-x", "test" ]
 
 volumes:
   build-result:
